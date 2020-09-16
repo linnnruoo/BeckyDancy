@@ -6,21 +6,25 @@ export interface IUserSchema extends Document {
   MAC: string // MAC address
 }
 
-const UserSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
+const UserSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    beetleId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    MAC: {
+      // MAC address
+      type: String,
+      required: true,
+      unique: true,
+    },
   },
-  beetleId: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  MAC: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-})
+  { versionKey: false },
+)
 
 export default model<IUserSchema>('User', UserSchema)

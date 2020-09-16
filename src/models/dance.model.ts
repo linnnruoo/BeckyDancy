@@ -32,17 +32,20 @@ const DancerSchema = new Schema({
   },
 })
 
-const DanceSchema = new Schema({
-  dancers: [DancerSchema],
-  status: {
-    type: Number,
-    enum: [0, 1],
-    required: true,
+const DanceSchema = new Schema(
+  {
+    dancers: [DancerSchema],
+    status: {
+      type: Number,
+      enum: [0, 1],
+      required: true,
+    },
+    date: {
+      type: Date,
+      required: true,
+    },
   },
-  date: {
-    type: Date,
-    required: true,
-  },
-})
+  { versionKey: false },
+)
 
 export default model<IDanceSchema>('Dance', DanceSchema)

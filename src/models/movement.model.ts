@@ -11,20 +11,23 @@ interface IMovementSchema extends Document {
   date: Date
 }
 
-const MovementSchema = new Schema({
-  move: {
-    type: Number,
-    enum: getMoves(),
-    required: true,
+const MovementSchema = new Schema(
+  {
+    move: {
+      type: Number,
+      enum: getMoves(),
+      required: true,
+    },
+    position: {
+      type: [Number],
+      required: true,
+    },
+    date: {
+      type: Date,
+      required: true,
+    },
   },
-  position: {
-    type: [Number],
-    required: true,
-  },
-  date: {
-    type: Date,
-    required: true,
-  },
-})
+  { versionKey: false },
+)
 
 export default model<IMovementSchema>('Movement', MovementSchema)

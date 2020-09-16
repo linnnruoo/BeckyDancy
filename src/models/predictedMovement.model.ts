@@ -12,25 +12,28 @@ interface IPredictedMovementSchema extends Document {
   date: Date
 }
 
-const PredictedMovementSchema = new Schema({
-  move: {
-    type: Number,
-    enum: getMoves(),
-    required: true,
+const PredictedMovementSchema = new Schema(
+  {
+    move: {
+      type: Number,
+      enum: getMoves(),
+      required: true,
+    },
+    position: {
+      type: [Number],
+      required: true,
+    },
+    syncDelay: {
+      type: Number,
+      required: true,
+    },
+    date: {
+      type: Date,
+      required: true,
+    },
   },
-  position: {
-    type: [Number],
-    required: true,
-  },
-  syncDelay: {
-    type: Number,
-    required: true,
-  },
-  date: {
-    type: Date,
-    required: true,
-  },
-})
+  { versionKey: false },
+)
 
 export default model<IPredictedMovementSchema>(
   'PredictedPredictedMovement',

@@ -28,17 +28,20 @@ const SensorReadingSchema = new Schema({
   },
 })
 
-const SensorSchema = new Schema({
-  dancerNo: {
-    type: String,
-    required: true,
+const SensorSchema = new Schema(
+  {
+    dancerNo: {
+      type: String,
+      required: true,
+    },
+    accelerometer: SensorReadingSchema,
+    gyroscope: SensorReadingSchema,
+    date: {
+      type: Date,
+      required: true,
+    },
   },
-  accelerometer: SensorReadingSchema,
-  gyroscope: SensorReadingSchema,
-  date: {
-    type: Date,
-    required: true,
-  },
-})
+  { versionKey: false },
+)
 
 export default model<ISensorSchema>('Sensor', SensorSchema)

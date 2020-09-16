@@ -36,6 +36,6 @@ const PredictedMovementSchema = new Schema(
 )
 
 export default model<IPredictedMovementSchema>(
-  'PredictedPredictedMovement',
+  'PredictedMovement',
   PredictedMovementSchema,
 )

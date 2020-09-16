@@ -5,7 +5,7 @@ import { Document, Schema, model } from 'mongoose'
 
 import { IUserSchema } from './user.model'
 
-enum Status {
+export enum Status {
   Idle = 0,
   Active = 1,
 }

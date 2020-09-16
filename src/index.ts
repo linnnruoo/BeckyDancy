@@ -6,7 +6,7 @@ import indexRouter from 'routes'
 import apiRouter from 'routes/api'
 
 class App {
-  public app: express.Application
+  public app: Application
   public mongoUrl: string = MONGO_URI
 
   constructor() {

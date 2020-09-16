@@ -5,6 +5,11 @@ import { Document, Schema, model } from 'mongoose'
 
 import { IUserSchema } from './user.model'
 
+enum Status {
+  Idle = 0,
+  Active = 1,
+}
+
 interface IDancerSchema {
   dancerNo: string
   userId: IUserSchema['_id']
@@ -12,6 +17,7 @@ interface IDancerSchema {
 
 interface IDanceSchema extends Document {
   dancers: Array<IDancerSchema>
+  status: Status
   date: Date
 }
 
@@ -27,11 +33,16 @@ const DancerSchema = new Schema({
 })
 
 const DanceSchema = new Schema({
+  dancers: [DancerSchema],
+  status: {
+    type: Number,
+    enum: [0, 1],
+    required: true,
+  },
   date: {
     type: Date,
     required: true,
   },
-  dancers: [DancerSchema],
 })
 
 export default model<IDanceSchema>('Dance', DanceSchema)

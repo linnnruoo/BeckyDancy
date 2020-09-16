@@ -14,12 +14,13 @@
     "noEmit": true,
     "rootDir": ".",
     "outDir": "./build",
+    "baseUrl": "src",
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "build"],
   "include": ["src"]
 }

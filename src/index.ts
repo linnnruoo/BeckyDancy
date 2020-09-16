@@ -9,8 +9,6 @@ const app: Application = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-const db = require('./config/keys').MONGO_URI
-
 mongoose
   .connect(db)
   .then(() => console.log('MongoDB connected'))
@@ -20,5 +18,3 @@ mongoose
 app.use('/', indexRouter)
 
 app.listen('5000', () => console.log('Becky started listening on port 5000'))
-
-module.exports = app

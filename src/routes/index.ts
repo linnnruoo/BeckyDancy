@@ -7,7 +7,7 @@ const router = express.Router()
  * @desc: GET home page
  */
 router.get('/', (req, res, _) => {
-  res.render('index', { title: 'Test' })
+  res.send('Hello!')
 })
 
 export default router

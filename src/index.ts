@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import { MONGO_URI } from 'config/keys'
 import indexRouter from 'routes'
 import apiRouter from 'routes/api'
+import { errorHandlingMiddleware } from 'utilities/httpError'
 
 class App {
   public app: Application
@@ -23,6 +24,9 @@ class App {
     // Initialise http request to index and api routers '/' & '/api'
     this.app.use('/', indexRouter)
     this.app.use('/api', apiRouter)
+    // centralised error handler
+    this.app.use(errorHandlingMiddleware)
+
     // Listen to port 5000
     this.app.listen('5000', () =>
       console.log('Becky started listening on port 5000'),

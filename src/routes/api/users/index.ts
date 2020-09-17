@@ -8,15 +8,12 @@ const router = express.Router()
  * @route Get /api/users/
  * @desc: Get all users
  */
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const users = await User.find()
     res.json(users)
   } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: 'Unexpected error',
-    })
+    next(err)
   }
 })
 
@@ -24,7 +21,7 @@ router.get('/', async (req, res) => {
  * @route Post /api/users/
  * @desc: Create new user
  */
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   try {
     const newUser = new User({
       name: req.body.name,
@@ -34,11 +31,7 @@ router.post('/', async (req, res) => {
     const user = await newUser.save()
     res.json(user)
   } catch (err) {
-    console.log(err)
-    res.status(500).json({
-      success: false,
-      message: 'Unexpected error',
-    })
+    next(err)
   }
 })
 

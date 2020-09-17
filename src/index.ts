@@ -1,5 +1,7 @@
 import express, { Application } from 'express'
 import mongoose from 'mongoose'
+import ioServer, { Socket } from 'socket.io'
+import http from 'http'
 
 import { MONGO_URI } from 'config/keys'
 import indexRouter from 'routes'
@@ -7,13 +9,20 @@ import apiRouter from 'routes/api'
 import { errorHandlingMiddleware } from 'utilities/httpError'
 
 class App {
+  public static readonly PORT: number = 5000
+
   public app: Application
   public mongoUrl: string = MONGO_URI
+  private server: http.Server
+  private io: SocketIO.Server
 
   constructor() {
     this.app = express()
     this.setup()
     this.mongoSetup()
+    this.server = http.createServer(this.app)
+    this.io = ioServer(this.server)
+    this.socketSetup()
   }
 
   private setup(): void {
@@ -28,9 +37,9 @@ class App {
     this.app.use(errorHandlingMiddleware)
 
     // Listen to port 5000
-    this.app.listen('5000', () =>
-      console.log('Becky started listening on port 5000'),
-    )
+    // this.app.listen('5000', () =>
+    //   console.log('TEST 1 Becky started listening on port 5000'),
+    // )
   }
 
   private mongoSetup(): void {
@@ -44,6 +53,21 @@ class App {
     } catch (err) {
       console.log(err)
     }
+  }
+
+  private socketSetup(): void {
+    // Server listen to port 5000
+    this.server.listen(5000, () => {
+      console.log('TEST2 Becky started listening on port 5000')
+    })
+
+    // listen to connection?
+    this.io.on('connection', (socket: Socket) => {
+      console.log('user joined')
+      socket.on('disconnect', function () {
+        console.log('user disconnected')
+      })
+    })
   }
 }
 export default new App().app

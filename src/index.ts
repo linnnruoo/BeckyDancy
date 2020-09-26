@@ -35,11 +35,6 @@ class App {
     this.app.use('/api', apiRouter)
     // centralised error handler
     this.app.use(errorHandlingMiddleware)
-
-    // Listen to port 5000
-    // this.app.listen('5000', () =>
-    //   console.log('TEST 1 Becky started listening on port 5000'),
-    // )
   }
 
   private mongoSetup(): void {
@@ -58,10 +53,11 @@ class App {
   private socketSetup(): void {
     // Server listen to port 5000
     this.server.listen(5000, () => {
-      console.log('TEST2 Becky started listening on port 5000')
+      console.log('Becky started listening on port 5000')
     })
 
     // listen to connection?
+    // https://stackoverflow.com/questions/9709912/separating-file-server-and-socket-io-logic-in-node-js
     this.io.on('connection', (socket: Socket) => {
       console.log('user joined')
       socket.on('disconnect', function () {

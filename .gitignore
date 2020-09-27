@@ -4,4 +4,4 @@ __pycache__
 rs0*
 rs1*
 rs2*
-mongo/var
+mongo/replica/var

@@ -61,7 +61,7 @@ class App {
     this.io.on('connection', (socket: Socket) => {
       console.log('user joined')
       // begin listening and emitting on all stream events changes
-      streams.listenOnMovementChange(this.io)
+      streams.onAllEventsChange(this.io)
       socket.on('disconnect', function () {
         console.log('user disconnected')
       })

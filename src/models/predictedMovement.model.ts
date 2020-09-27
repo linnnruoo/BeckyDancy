@@ -5,7 +5,7 @@ import { Document, Schema, model } from 'mongoose'
 
 import Move, { getMoves } from '../common/moves'
 
-interface IPredictedMovementSchema extends Document {
+export interface IPredictedMovementSchema extends Document {
   move: Move
   position: number[] // e.g [1,2,3]
   syncDelay: number

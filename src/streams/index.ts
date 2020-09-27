@@ -5,19 +5,51 @@
  * https://gist.github.com/riodw/74a839ab6964bceda8ff799d3ad33442
  */
 import { ChangeEvent } from 'mongodb'
-import Movement, { IMovementSchema } from 'models/movement.model'
 
-const listenOnMovementChange = (io: SocketIO.Server) => {
-  console.log('DEBUG1')
+import * as events from 'common/events'
+import Movement, { IMovementSchema } from 'models/movement.model'
+import PredictedMovement, {
+  IPredictedMovementSchema,
+} from 'models/predictedMovement.model'
+import Sensor, { ISensorSchema } from 'models/sensor.model'
+
+const onMovementChange = (io: SocketIO.Server) => {
   const changeStream = Movement.watch()
 
   changeStream.on('change', (change: ChangeEvent<IMovementSchema>) => {
-    console.log('==== movement collection has changed ====')
     if (change.operationType == 'insert') {
       const data = change.fullDocument
-      io.emit('new movement received', data)
+      io.emit(events.MOVEMENT_INSERTION_EVENT, data)
     }
   })
 }
 
-export { listenOnMovementChange }
+const onPredictedMovementChange = (io: SocketIO.Server) => {
+  const changeStream = PredictedMovement.watch()
+
+  changeStream.on('change', (change: ChangeEvent<IPredictedMovementSchema>) => {
+    if (change.operationType == 'insert') {
+      const data = change.fullDocument
+      io.emit(events.PREDICTED_MOVEMENT_INSERTION_EVENT, data)
+    }
+  })
+}
+
+const onSensorDataChange = (io: SocketIO.Server) => {
+  const changeStream = Sensor.watch()
+
+  changeStream.on('change', (change: ChangeEvent<ISensorSchema>) => {
+    if (change.operationType == 'insert') {
+      const data = change.fullDocument
+      io.emit(events.SENSOR_INSERTION_EVENT, data)
+    }
+  })
+}
+
+const onAllEventsChange = (io: SocketIO.Server) => {
+  onMovementChange(io)
+  onPredictedMovementChange(io)
+  onSensorDataChange(io)
+}
+
+export { onAllEventsChange }

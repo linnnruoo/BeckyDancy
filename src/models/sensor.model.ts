@@ -6,7 +6,7 @@ interface ISensorReadingSchema {
   z: number
 }
 
-interface ISensorSchema extends Document {
+export interface ISensorSchema extends Document {
   dancerNo: string
   accelerometer: ISensorReadingSchema
   gyroscope: ISensorReadingSchema

@@ -33,10 +33,10 @@ class MongoDatabase:
         # Execute seedings in parallel
         p1 = Process(target=self.movement_seeder.seed)
         p1.start()
-        # p2 = Process(target=self.predicted_movement_seeder.seed)
-        # p2.start()
-        # p3 = Process(target=self.sensor_seeder.seed)
-        # p3.start()
+        p2 = Process(target=self.predicted_movement_seeder.seed)
+        p2.start()
+        p3 = Process(target=self.sensor_seeder.seed)
+        p3.start()
 
 
 mongodb = MongoDatabase()

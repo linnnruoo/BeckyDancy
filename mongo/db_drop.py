@@ -10,8 +10,6 @@ class MongoDatabase:
     def drop_all(self):
         print('Deleting all collections...')
         for collection in self._db.list_collection_names():
-            if collection == 'users':
-                continue
             self._db.drop_collection(collection)
         print('Done.')
 

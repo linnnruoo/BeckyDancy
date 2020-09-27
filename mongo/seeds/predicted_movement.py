@@ -12,17 +12,16 @@ POSSIBLE_POSITIONS = [[1, 2, 3], [2, 1, 3], [2, 3, 1],
 TIME_TO_SLEEP = 5  # in seconds
 
 
-class MovementSeeder:
+class PredictedMovementSeeder:
     def __init__(self, db):
         self._db = db
 
     def seed(self):
         print('Begin seeding for predicted movement...')
-        # TODO: seed at a rate of every 5 seconds
         for _ in range(30):
             movement = self.generate_movement()
             self._db['predictedmovements'].insert_one(movement)
-            time.sleep(5)
+            time.sleep(TIME_TO_SLEEP)
             print('Predicted movement seeded.')
 
         print('Completed seeding for predicted movement...')

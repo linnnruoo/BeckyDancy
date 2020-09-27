@@ -1,7 +1,6 @@
 import random
 import time
 from datetime import datetime
-from bson import ObjectId
 
 # refer to src/common/moves for the enums
 POSSIBLE_MOVES = [0, 1, 2, 3, 4, 5, 6, 7]
@@ -16,11 +15,10 @@ class MovementSeeder:
 
     def seed(self):
         print('Begin seeding for movement...')
-        # TODO: seed at a rate of every 5 seconds
         for _ in range(30):
             movement = self.generate_movement()
             self._db['movements'].insert_one(movement)
-            time.sleep(5)
+            time.sleep(TIME_TO_SLEEP)
             print('Movement seeded.')
 
         print('Completed seeding for movement...')

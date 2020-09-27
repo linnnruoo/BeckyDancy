@@ -6,7 +6,7 @@ const router = express.Router()
 
 /**
  * @route Post /api/predicted-movement/
- * @desc: Create new movement
+ * @desc: TEST -> Create new movement
  * @note: this route is not meant to exist
  * @todo: delete this route
  */

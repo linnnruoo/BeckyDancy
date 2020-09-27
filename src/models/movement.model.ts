@@ -5,7 +5,7 @@ import { Document, Schema, model } from 'mongoose'
 
 import Move, { getMoves } from '../common/moves'
 
-interface IMovementSchema extends Document {
+export interface IMovementSchema extends Document {
   move: Move
   position: number[] // e.g [1,2,3]
   date: Date

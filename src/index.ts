@@ -6,6 +6,7 @@ import http from 'http'
 import { MONGO_URI } from 'config/keys'
 import indexRouter from 'routes'
 import apiRouter from 'routes/api'
+import * as streams from 'streams'
 import { errorHandlingMiddleware } from 'utilities/httpError'
 
 class App {
@@ -56,10 +57,11 @@ class App {
       console.log('Becky started listening on port 5000')
     })
 
-    // listen to connection?
     // https://stackoverflow.com/questions/9709912/separating-file-server-and-socket-io-logic-in-node-js
     this.io.on('connection', (socket: Socket) => {
       console.log('user joined')
+      // begin listening and emitting on all stream events changes
+      streams.listenOnMovementChange(this.io)
       socket.on('disconnect', function () {
         console.log('user disconnected')
       })

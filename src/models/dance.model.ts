@@ -15,7 +15,7 @@ interface IDancerSchema {
   userId: IUserSchema['_id']
 }
 
-interface IDanceSchema extends Document {
+export interface IDanceSchema extends Document {
   dancers: Array<IDancerSchema>
   status: Status
   date: Date

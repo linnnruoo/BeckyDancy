@@ -1,0 +1,3 @@
+# bare
+pymongo[tls,srv]==3.7.0
+faker

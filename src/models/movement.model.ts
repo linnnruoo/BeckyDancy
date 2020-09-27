@@ -4,10 +4,8 @@
 import { Document, Schema, model } from 'mongoose'
 
 import Move, { getMoves } from '../common/moves'
-import { IDanceSchema } from './dance.model'
 
 interface IMovementSchema extends Document {
-  danceId: IDanceSchema['_id']
   move: Move
   position: number[] // e.g [1,2,3]
   date: Date
@@ -15,10 +13,6 @@ interface IMovementSchema extends Document {
 
 const MovementSchema = new Schema(
   {
-    danceId: {
-      type: Schema.Types.ObjectId,
-      required: true,
-    },
     move: {
       type: Number,
       enum: getMoves(),

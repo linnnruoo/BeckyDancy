@@ -31,10 +31,14 @@ const errorHandlingMiddleware = (
   res: Response,
   next: NextFunction,
 ) => {
-  const { status, message } = err
+  let { status, message } = err
+  if (typeof status !== 'number') {
+    status = 500
+    message = 'Internal server error'
+  }
   res.status(status).json({
-    status: status || 500,
-    message: message || 'Internal server error',
+    status,
+    message,
   })
 }
 

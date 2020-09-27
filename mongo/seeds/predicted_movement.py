@@ -1,7 +1,9 @@
 import random
 import time
 from datetime import datetime
-from bson import ObjectId
+from faker import Faker
+
+faker = Faker('en')
 
 # refer to src/common/moves for the enums
 POSSIBLE_MOVES = [0, 1, 2, 3, 4, 5, 6, 7]
@@ -15,19 +17,20 @@ class MovementSeeder:
         self._db = db
 
     def seed(self):
-        print('Begin seeding for movement...')
+        print('Begin seeding for predicted movement...')
         # TODO: seed at a rate of every 5 seconds
         for _ in range(30):
             movement = self.generate_movement()
-            self._db['movements'].insert_one(movement)
+            self._db['predictedmovements'].insert_one(movement)
             time.sleep(5)
-            print('Movement seeded.')
+            print('Predicted movement seeded.')
 
-        print('Completed seeding for movement...')
+        print('Completed seeding for predicted movement...')
 
     def generate_movement(self):
         return {
             'move': random.choice(POSSIBLE_MOVES),
             'position': random.choice(POSSIBLE_POSITIONS),
+            'syncDelay': faker.decimal(),
             'date': datetime.utcnow().isoformat()
         }

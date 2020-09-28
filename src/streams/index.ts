@@ -13,22 +13,28 @@ import PredictedMovement, {
 } from 'models/predictedMovement.model'
 import Sensor, { ISensorSchema } from 'models/sensor.model'
 
-const onMovementChange = (io: SocketIO.Server) => {
-  const changeStream = Movement.watch()
+const filterInsertEvent = [{ $match: { operationType: 'insert' } }]
 
+const onMovementChange = (io: SocketIO.Server) => {
+  const changeStream = Movement.watch(filterInsertEvent)
+
+  let count = 0
   changeStream.on('change', (change: ChangeEvent<IMovementSchema>) => {
-    if (change.operationType == 'insert') {
+    console.log('debug1', change.operationType)
+    if (change.operationType === 'insert') {
       const data = change.fullDocument
       io.emit(events.MOVEMENT_INSERTION_EVENT, data)
+      console.log(count, data)
+      count += 1
     }
   })
 }
 
 const onPredictedMovementChange = (io: SocketIO.Server) => {
-  const changeStream = PredictedMovement.watch()
+  const changeStream = PredictedMovement.watch(filterInsertEvent)
 
   changeStream.on('change', (change: ChangeEvent<IPredictedMovementSchema>) => {
-    if (change.operationType == 'insert') {
+    if (change.operationType === 'insert') {
       const data = change.fullDocument
       io.emit(events.PREDICTED_MOVEMENT_INSERTION_EVENT, data)
     }
@@ -36,10 +42,10 @@ const onPredictedMovementChange = (io: SocketIO.Server) => {
 }
 
 const onSensorDataChange = (io: SocketIO.Server) => {
-  const changeStream = Sensor.watch()
+  const changeStream = Sensor.watch(filterInsertEvent)
 
   changeStream.on('change', (change: ChangeEvent<ISensorSchema>) => {
-    if (change.operationType == 'insert') {
+    if (change.operationType === 'insert') {
       const data = change.fullDocument
       io.emit(events.SENSOR_INSERTION_EVENT, data)
     }

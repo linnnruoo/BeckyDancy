@@ -21,5 +21,6 @@ class UserSeeder:
         return {
             'name': POSSIBLE_USERS[i],
             'beetleId': i,
-            'MAC': faker.color()
+            'MAC': faker.color(),
+            'url': 'https://tinyurl.com/y2oaju7c'
         }

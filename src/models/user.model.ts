@@ -4,6 +4,7 @@ export interface IUserSchema extends Document {
   name: string
   beetleId: string
   MAC: string // MAC address
+  url: string // profile url
 }
 
 const UserSchema = new Schema(
@@ -22,6 +23,11 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+    },
+    url: {
+      // profile url
+      type: String,
+      required: true,
     },
   },
   { versionKey: false },

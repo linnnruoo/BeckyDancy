@@ -27,6 +27,7 @@ router.post('/', async (req, res, next) => {
       name: req.body.name,
       beetleId: req.body.beetleId,
       MAC: req.body.MAC,
+      url: req.body.url,
     })
     const user = await newUser.save()
     res.json(user)

@@ -1,0 +1,57 @@
+version: '3.4'
+
+# https://gist.github.com/asoorm/7822cc742831639c93affd734e97ce4f
+services:
+  app:
+    container_name: becky
+    image: becky:latest
+    build:
+      network: host
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - '5000:5000'
+    links:
+      - mongo_1
+    depends_on:
+      - mongo_1
+    restart: on-failure
+  mongo_1:
+    image: mongo:4
+    container_name: localmongo1
+    hostname: mongo_1
+    expose:
+      - 27017
+    ports:
+      - 27011:27017
+    command: 'mongod --bind_ip_all --replSet appReplicaSet'
+    volumes:
+      - './mongo/replica/rs_config.js:/docker-entrypoint-initdb.d/rs_config.js'
+    extra_hosts:
+      - 'mongo_1:127.0.0.1'
+    environment:
+      - MONGODB_REPLICA_SET_MODE=primary
+    restart: on-failure
+  mongo_2:
+    image: mongo:4
+    hostname: mongo_2
+    container_name: localmongo2
+    expose:
+      - 27017
+    ports:
+      - 27012:27017
+    command: 'mongod --bind_ip_all --replSet appReplicaSet'
+    restart: on-failure
+  mongo_3:
+    image: mongo:4
+    hostname: mongo_3
+    container_name: localmongo3
+    expose:
+      - 27017
+    ports:
+      - 27013:27017
+    command: 'mongod --bind_ip_all --replSet appReplicaSet'
+    restart: on-failure

@@ -3,6 +3,7 @@
  * TODO: Separete the logic into each individual files?
  * https://medium.com/@ericfossas/mongo-change-streams-and-socketio-web-sockets-b276e27c10f
  * https://gist.github.com/riodw/74a839ab6964bceda8ff799d3ad33442
+ * https://medium.com/@mandalrajdeep/using-change-streams-in-mongodb-50ca3f44421a
  */
 import { ChangeEvent } from 'mongodb'
 
@@ -18,14 +19,10 @@ const filterInsertEvent = [{ $match: { operationType: 'insert' } }]
 const onMovementChange = (io: SocketIO.Server) => {
   const changeStream = Movement.watch(filterInsertEvent)
 
-  let count = 0
   changeStream.on('change', (change: ChangeEvent<IMovementSchema>) => {
-    console.log('debug1', change.operationType)
     if (change.operationType === 'insert') {
       const data = change.fullDocument
       io.emit(events.MOVEMENT_INSERTION_EVENT, data)
-      console.log(count, data)
-      count += 1
     }
   })
 }

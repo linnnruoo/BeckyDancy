@@ -18,7 +18,10 @@ class MongoDatabase:
         self.initialise_seeders()
 
     def initialise_connection(self):
-        self.client = MongoClient('mongodb://127.0.0.1:27017')
+        # self.client = MongoClient(
+        #     'mongodb://0.0.0.0:27011,0.0.0.0:27012,0.0.0.0:27013/cg4002-demo-test?replicaSet=appReplicaSet')
+        # totally dont know why
+        self.client = MongoClient('mongodb://0.0.0.0:27011')
         self._db = self.client['cg4002-demo-test']
 
     def initialise_seeders(self):

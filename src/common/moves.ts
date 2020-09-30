@@ -1,5 +1,4 @@
 enum Move {
-  Elbowlock = 0,
   Hair = 1,
   Pushback = 2,
   Rocket = 3,
@@ -7,6 +6,7 @@ enum Move {
   Shouldershrug = 5,
   Windows = 6,
   Zigzag = 7,
+  Elbowlock = 8,
 }
 
 export const getMoves = () => Object.values(Move)

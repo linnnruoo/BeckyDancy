@@ -30,6 +30,6 @@ class PredictedMovementSeeder:
         return {
             'move': random.choice(POSSIBLE_MOVES),
             'position': random.choice(POSSIBLE_POSITIONS),
-            'syncDelay': faker.decimal(),
+            'syncDelay': round(random.random(), 2),
             'date': datetime.utcnow().isoformat()
         }

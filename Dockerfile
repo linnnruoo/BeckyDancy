@@ -10,4 +10,4 @@ COPY yarn.lock ./yarn.lock
 RUN yarn
 
 # start app
-CMD ["yarn", "start"]
+CMD ["yarn", "dev"]

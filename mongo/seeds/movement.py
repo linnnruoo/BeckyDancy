@@ -3,7 +3,7 @@ import time
 from datetime import datetime
 
 # refer to src/common/moves for the enums
-POSSIBLE_MOVES = [0, 1, 2, 3, 4, 5, 6, 7]
+POSSIBLE_MOVES = [1, 2, 3, 4, 5, 6, 7, 8]
 POSSIBLE_POSITIONS = [[1, 2, 3], [2, 1, 3], [2, 3, 1],
                       [1, 3, 2], [3, 2, 1], [3, 1, 2]]
 TIME_TO_SLEEP = 5  # in seconds

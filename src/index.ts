@@ -2,6 +2,7 @@ import express, { Application } from 'express'
 import mongoose from 'mongoose'
 import ioServer, { Socket } from 'socket.io'
 import http from 'http'
+import cors from 'cors'
 
 import { MONGO_URI } from 'config/keys'
 import indexRouter from 'routes'
@@ -31,6 +32,8 @@ class App {
     this.app.use(express.json())
     // Support application/x-www-form-urlencoded post data
     this.app.use(express.urlencoded({ extended: false }))
+    // enable CORS policy for access control allow origin
+    this.app.use(cors({ origin: true, credentials: true }))
     // Initialise http request to index and api routers '/' & '/api'
     this.app.use('/', indexRouter)
     this.app.use('/api', apiRouter)

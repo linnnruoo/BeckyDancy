@@ -11,7 +11,7 @@ export enum Status {
 }
 
 interface IDancerSchema {
-  dancerNo: string
+  dancerNo: number
   userId: IUserSchema['_id']
 }
 

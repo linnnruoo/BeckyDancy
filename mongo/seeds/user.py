@@ -2,7 +2,9 @@ from faker import Faker
 
 faker = Faker('en')
 
-POSSIBLE_USERS = ['Lynn', 'Dinesh', 'Tan', 'Tze Guang', 'Qikai', 'Ming Hong']
+POSSIBLE_USERS = ['Lynn', 'Dinesh', 'Tan', 'Tze Guang', 'Qi Kai', 'Ming Hong']
+POSSIBLE_URLS = ['https://i.imgur.com/WAm1CpL.jpg', 'https://i.imgur.com/jeqe4Al.png', 'https://i.imgur.com/rmCxK6Z.jpg',
+                 'https://i.imgur.com/dikGGpr.jpg', 'https://i.imgur.com/9wAAxYH.jpg', 'https://i.imgur.com/QBAkMuU.jpg']
 
 
 class UserSeeder:
@@ -21,5 +23,6 @@ class UserSeeder:
         return {
             'name': POSSIBLE_USERS[i],
             'beetleId': i,
-            'MAC': faker.color()
+            'MAC': faker.color(),
+            'url': POSSIBLE_URLS[i]
         }

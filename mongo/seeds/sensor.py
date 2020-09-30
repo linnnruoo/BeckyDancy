@@ -6,7 +6,7 @@ from faker import Faker
 faker = Faker('en')
 
 POSSIBLE_DANCER_NO = [1, 2, 3]
-TIME_TO_SLEEP = 1  # in seconds
+TIME_TO_SLEEP = 0.5  # in seconds
 
 
 class SensorSeeder:
@@ -25,16 +25,17 @@ class SensorSeeder:
 
     def generate_movement(self):
         return {
-            'dancerNo': random.choice(POSSIBLE_DANCER_NO),
+            # 'dancerNo': random.choice(POSSIBLE_DANCER_NO),
+            'dancerNo': 1,
             'accelerometer': {
-                "x": faker.decimal(),
-                "y": faker.decimal(),
-                "z": faker.decimal(),
+                "x": round(random.random(), 2),
+                "y": round(random.random(), 2),
+                "z": round(random.random(), 2),
             },
             'gyroscope': {
-                "x": faker.decimal(),
-                "y": faker.decimal(),
-                "z": faker.decimal(),
+                "x": round(random.random(), 2),
+                "y": round(random.random(), 2),
+                "z": round(random.random(), 2),
             },
             'date': datetime.utcnow().isoformat()
         }

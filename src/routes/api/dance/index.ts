@@ -64,10 +64,17 @@ router.get('/active', async (req, res, next) => {
  * @desc: End the dance session by dance session id
  * @desc: set the status to idle
  */
-router.post('/:danceSessionId/end', async (req, res, next) => {
+router.post('/end', async (req, res, next) => {
   try {
-    const conditions = { _id: req.params.danceSessionId }
+    const conditions = { status: Status.Active }
     const update = { status: Status.Idle }
+    const danceSession = await Dance.findOne(conditions)
+    if (!danceSession) {
+      // design consideration:
+      // just return success instead of throwing not found error
+      res.json({ success: true })
+      return
+    }
     await Dance.findOneAndUpdate(conditions, update)
     res.json({ success: true })
   } catch (err) {

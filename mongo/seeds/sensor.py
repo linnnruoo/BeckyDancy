@@ -16,16 +16,16 @@ class SensorSeeder:
     def seed(self):
         print('Begin seeding for sensor data...')
         for _ in range(300):
-            sensor = self.generate_movement()
+            sensor = self.generate_sensor()
             self._db['sensors'].insert_one(sensor)
             time.sleep(TIME_TO_SLEEP)
             print('Sensor data seeded.')
 
         print('Completed seeding for sensor data...')
 
-    def generate_movement(self):
+    def generate_sensor(self):
         return {
-            # 'dancerNo': random.choice(POSSIBLE_DANCER_NO),
+            'dancerNo': random.choice(POSSIBLE_DANCER_NO),
             'dancerNo': 1,
             'accelerometer': {
                 "x": round(random.random(), 2),

@@ -1,6 +1,7 @@
 version: '3.4'
 
 # https://gist.github.com/asoorm/7822cc742831639c93affd734e97ce4f
+# https://gist.github.com/harveyconnor/518e088bad23a273cae6ba7fc4643549
 services:
   app:
     container_name: becky
@@ -16,8 +17,12 @@ services:
       - '5000:5000'
     links:
       - mongo_1
+      - mongo_2
+      - mongo_3
     depends_on:
       - mongo_1
+      - mongo_2
+      - mongo_3
     restart: on-failure
   mongo_1:
     image: mongo:4
@@ -47,6 +52,11 @@ services:
     command: 'mongod --bind_ip_all --replSet appReplicaSet --dbpath /data/db'
     volumes:
       - './mongo/data2:/data/db'
+    extra_hosts:
+      - 'mongo_2:127.0.0.1'
+    environment:
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_PRIMARY_HOST=mongo_1
     restart: on-failure
   mongo_3:
     image: mongo:4
@@ -59,4 +69,9 @@ services:
     command: 'mongod --bind_ip_all --replSet appReplicaSet --dbpath /data/db'
     volumes:
       - ./mongo/data3:/data/db
+    extra_hosts:
+      - 'mongo_3:127.0.0.1'
+    environment:
+      - MONGODB_REPLICA_SET_MODE=arbiter
+      - MONGODB_PRIMARY_HOST=mongo_1
     restart: on-failure

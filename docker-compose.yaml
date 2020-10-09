@@ -2,6 +2,7 @@ version: '3.4'
 
 # https://gist.github.com/asoorm/7822cc742831639c93affd734e97ce4f
 # https://gist.github.com/harveyconnor/518e088bad23a273cae6ba7fc4643549
+# https://stackoverflow.com/questions/47998855/connect-to-mongodb-replica-set-running-inside-docker-with-java-windows
 services:
   app:
     container_name: becky
@@ -57,6 +58,8 @@ services:
     environment:
       - MONGODB_REPLICA_SET_MODE=secondary
       - MONGODB_PRIMARY_HOST=mongo_1
+    depends_on:
+      - mongo_1
     restart: on-failure
   mongo_3:
     image: mongo:4

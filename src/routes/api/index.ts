@@ -28,9 +28,4 @@ router.use('/sensor', sensorRouter)
  */
 router.use('/movement', movementRouter)
 
-/**
- * @route * /api/predicted-movement/*
- */
-router.use('/predicted-movement', predictedMovementRouter)
-
 export default router

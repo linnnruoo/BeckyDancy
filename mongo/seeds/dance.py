@@ -20,7 +20,7 @@ class DanceSeeder:
         # select 3 users, make them into dancers
         users = [x for x in self._db['users'].find().limit(3)]
         dancers = [
-            {'dancerNo': i+1, 'userId': str(user['_id'])} for i, user in enumerate(users)]
+            {'dancerNo': i+1, 'userId': str(user['_id']), 'beetleId': str(user['beetleId'])} for i, user in enumerate(users)]
 
         return {
             'dancers': dancers,

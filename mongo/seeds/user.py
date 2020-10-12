@@ -22,7 +22,7 @@ class UserSeeder:
     def generate_user(self, i):
         return {
             'name': POSSIBLE_USERS[i],
-            'beetleId': i,
+            'beetleId': str(i),
             'MAC': faker.color(),
             'url': POSSIBLE_URLS[i]
         }

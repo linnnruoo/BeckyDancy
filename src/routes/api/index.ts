@@ -4,7 +4,6 @@ import usersRouter from 'routes/api/users'
 import danceRouter from 'routes/api/dance'
 import sensorRouter from 'routes/api/sensor'
 import movementRouter from 'routes/api/movement'
-import predictedMovementRouter from 'routes/api/predictedMovement'
 
 const router = express.Router()
 

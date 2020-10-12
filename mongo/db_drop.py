@@ -11,8 +11,6 @@ class MongoDatabase:
         print('Deleting all collections...')
         for collection in self._db.list_collection_names():
             print(collection)
-            if collection == 'dances' or collection == 'users':
-                continue
             self._db.drop_collection(collection)
         print('Done.')
 

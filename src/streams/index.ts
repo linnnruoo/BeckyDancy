@@ -9,9 +9,6 @@ import { ChangeEvent } from 'mongodb'
 
 import * as events from 'common/events'
 import Movement, { IMovementSchema } from 'models/movement.model'
-import PredictedMovement, {
-  IPredictedMovementSchema,
-} from 'models/predictedMovement.model'
 import Sensor, { ISensorSchema } from 'models/sensor.model'
 
 const filterInsertEvent = [{ $match: { operationType: 'insert' } }]
@@ -23,17 +20,6 @@ const onMovementChange = (io: SocketIO.Server) => {
     if (change.operationType === 'insert') {
       const data = change.fullDocument
       io.emit(events.MOVEMENT_INSERTION_EVENT, data)
-    }
-  })
-}
-
-const onPredictedMovementChange = (io: SocketIO.Server) => {
-  const changeStream = PredictedMovement.watch(filterInsertEvent)
-
-  changeStream.on('change', (change: ChangeEvent<IPredictedMovementSchema>) => {
-    if (change.operationType === 'insert') {
-      const data = change.fullDocument
-      io.emit(events.PREDICTED_MOVEMENT_INSERTION_EVENT, data)
     }
   })
 }
@@ -51,7 +37,6 @@ const onSensorDataChange = (io: SocketIO.Server) => {
 
 const onAllEventsChange = (io: SocketIO.Server) => {
   onMovementChange(io)
-  onPredictedMovementChange(io)
   onSensorDataChange(io)
 }
 

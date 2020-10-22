@@ -26,7 +26,6 @@ class SensorSeeder:
     def generate_sensor(self):
         return {
             'dancerNo': random.choice(POSSIBLE_DANCER_NO),
-            'dancerNo': 1,
             'accelerometer': {
                 "x": round(random.random(), 2),
                 "y": round(random.random(), 2),

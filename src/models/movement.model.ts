@@ -17,6 +17,10 @@ const MovementSchema = new Schema(
   {
     // predicted
     move: {
+      type: Number,
+      required: true,
+    },
+    moves: {
       type: [Number],
       required: true,
     },

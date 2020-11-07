@@ -26,7 +26,8 @@ class MovementSeeder:
     def generate_movement(self):
         return {
             # predicted
-            'move': [random.choice(POSSIBLE_MOVES), random.choice(POSSIBLE_MOVES), random.choice(POSSIBLE_MOVES)],
+            'move': random.choice(POSSIBLE_MOVES),
+            'moves': [random.choice(POSSIBLE_MOVES), random.choice(POSSIBLE_MOVES), random.choice(POSSIBLE_MOVES)],
             'position': random.choice(POSSIBLE_POSITIONS),  # predicted
             'correctPosition': random.choice(POSSIBLE_POSITIONS),
             'syncDelay': round(random.random(), 2),

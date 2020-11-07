@@ -13,6 +13,7 @@ export enum Status {
 interface IDancerSchema {
   dancerNo: number
   userId: IUserSchema['_id']
+  beetleId: IUserSchema['beetleId']
 }
 
 export interface IDanceSchema extends Document {
@@ -28,6 +29,10 @@ const DancerSchema = new Schema({
   },
   userId: {
     type: Schema.Types.ObjectId,
+    required: true,
+  },
+  beetleId: {
+    type: Schema.Types.String,
     required: true,
   },
 })

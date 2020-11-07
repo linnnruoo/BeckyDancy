@@ -77,4 +77,6 @@ services:
     environment:
       - MONGODB_REPLICA_SET_MODE=arbiter
       - MONGODB_PRIMARY_HOST=mongo_1
+    depends_on:
+      - mongo_1
     restart: on-failure

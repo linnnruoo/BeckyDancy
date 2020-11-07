@@ -5,8 +5,7 @@ from faker import Faker
 
 faker = Faker('en')
 
-POSSIBLE_DANCER_NO = [1, 2, 3]
-TIME_TO_SLEEP = 0.5  # in seconds
+TIME_TO_SLEEP = 0.2  # in seconds
 
 
 class SensorSeeder:
@@ -15,18 +14,17 @@ class SensorSeeder:
 
     def seed(self):
         print('Begin seeding for sensor data...')
-        for _ in range(300):
-            sensor = self.generate_sensor()
+        for i in range(300):
+            sensor = self.generate_sensor(i)
             self._db['sensors'].insert_one(sensor)
             time.sleep(TIME_TO_SLEEP)
             print('Sensor data seeded.')
 
         print('Completed seeding for sensor data...')
 
-    def generate_sensor(self):
+    def generate_sensor(self, i):
         return {
-            'dancerNo': random.choice(POSSIBLE_DANCER_NO),
-            'dancerNo': 1,
+            'dancerNo': i % 3 + 1,
             'accelerometer': {
                 "x": round(random.random(), 2),
                 "y": round(random.random(), 2),

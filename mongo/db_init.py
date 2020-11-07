@@ -4,7 +4,6 @@ from pymongo import MongoClient
 from seeds.user import UserSeeder
 from seeds.dance import DanceSeeder
 from seeds.movement import MovementSeeder
-from seeds.predicted_movement import PredictedMovementSeeder
 from seeds.sensor import SensorSeeder
 
 
@@ -25,19 +24,16 @@ class MongoDatabase:
         self.user_seeder = UserSeeder(self._db)
         self.dance_seeder = DanceSeeder(self._db)
         self.movement_seeder = MovementSeeder(self._db)
-        self.predicted_movement_seeder = PredictedMovementSeeder(self._db)
         self.sensor_seeder = SensorSeeder(self._db)
 
     def seed_all(self):
         """Seeding into collections"""
-        self.user_seeder.seed()
-        self.dance_seeder.seed()
+        # self.user_seeder.seed()
+        # self.dance_seeder.seed()
 
         # Execute seedings in parallel
         p1 = Process(target=self.movement_seeder.seed)
         p1.start()
-        p2 = Process(target=self.predicted_movement_seeder.seed)
-        p2.start()
         p3 = Process(target=self.sensor_seeder.seed)
         p3.start()
 

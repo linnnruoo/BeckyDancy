@@ -25,6 +25,7 @@ class App {
     this.server = http.createServer(this.app)
     this.io = ioServer(this.server)
     this.socketSetup()
+    this.changeStreamsSetup()
   }
 
   private setup(): void {
@@ -64,11 +65,15 @@ class App {
     this.io.on('connection', (socket: Socket) => {
       console.log('user joined')
       // begin listening and emitting on all stream events changes
-      streams.onAllEventsChange(this.io)
       socket.on('disconnect', function () {
         console.log('user disconnected')
+        socket.disconnect(true)
       })
     })
+  }
+
+  private changeStreamsSetup(): void {
+    streams.onAllEventsChange(this.io)
   }
 }
 export default new App().app

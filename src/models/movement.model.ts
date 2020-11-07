@@ -17,18 +17,17 @@ const MovementSchema = new Schema(
   {
     // predicted
     move: {
-      type: Number,
-      enum: getMoves(),
+      type: [Number],
       required: true,
     },
     // predicted
     position: {
-      type: [Number],
+      type: String,
       required: true,
     },
     // from eval server
     correctPosition: {
-      type: [Number],
+      type: String,
       required: true,
     },
     syncDelay: {

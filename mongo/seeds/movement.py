@@ -4,8 +4,8 @@ from datetime import datetime
 
 # refer to src/common/moves for the enums
 POSSIBLE_MOVES = [1, 2, 3, 4, 5, 6, 7, 8]
-POSSIBLE_POSITIONS = [[1, 2, 3], [2, 1, 3], [2, 3, 1],
-                      [1, 3, 2], [3, 2, 1], [3, 1, 2]]
+POSSIBLE_POSITIONS = ['1 2 3', '2 1 3', '2 3 1',
+                      '1 3 2', '3 2 1', '3 1 2']
 TIME_TO_SLEEP = 5  # in seconds
 
 
@@ -25,7 +25,8 @@ class MovementSeeder:
 
     def generate_movement(self):
         return {
-            'move': random.choice(POSSIBLE_MOVES),  # predicted
+            # predicted
+            'move': [random.choice(POSSIBLE_MOVES), random.choice(POSSIBLE_MOVES), random.choice(POSSIBLE_MOVES)],
             'position': random.choice(POSSIBLE_POSITIONS),  # predicted
             'correctPosition': random.choice(POSSIBLE_POSITIONS),
             'syncDelay': round(random.random(), 2),

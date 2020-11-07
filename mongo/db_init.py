@@ -28,8 +28,8 @@ class MongoDatabase:
 
     def seed_all(self):
         """Seeding into collections"""
-        self.user_seeder.seed()
-        self.dance_seeder.seed()
+        # self.user_seeder.seed()
+        # self.dance_seeder.seed()
 
         # Execute seedings in parallel
         p1 = Process(target=self.movement_seeder.seed)

@@ -5,6 +5,7 @@ from seeds.user import UserSeeder
 from seeds.dance import DanceSeeder
 from seeds.movement import MovementSeeder
 from seeds.sensor import SensorSeeder
+from seeds.reset import ResetSeeder
 
 
 class MongoDatabase:
@@ -25,6 +26,7 @@ class MongoDatabase:
         self.dance_seeder = DanceSeeder(self._db)
         self.movement_seeder = MovementSeeder(self._db)
         self.sensor_seeder = SensorSeeder(self._db)
+        self.reset_seeder = ResetSeeder(self._db)
 
     def seed_all(self):
         """Seeding into collections"""
@@ -34,6 +36,8 @@ class MongoDatabase:
         # Execute seedings in parallel
         p1 = Process(target=self.movement_seeder.seed)
         p1.start()
+        p2 = Process(target=self.reset_seeder.seed)
+        p2.start()
         p3 = Process(target=self.sensor_seeder.seed)
         p3.start()
 

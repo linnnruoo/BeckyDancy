@@ -10,6 +10,7 @@ import { ChangeEvent } from 'mongodb'
 import * as events from 'common/events'
 import Movement, { IMovementSchema } from 'models/movement.model'
 import Sensor, { ISensorSchema } from 'models/sensor.model'
+import Reset, { IResetSchema } from 'models/reset.model'
 
 const filterInsertEvent = [{ $match: { operationType: 'insert' } }]
 
@@ -35,9 +36,21 @@ const onSensorDataChange = (io: SocketIO.Server) => {
   })
 }
 
+const onResetFlagReceived = (io: SocketIO.Server) => {
+  const changeStream = Reset.watch(filterInsertEvent)
+
+  changeStream.on('change', (change: ChangeEvent<IResetSchema>) => {
+    if (change.operationType === 'insert') {
+      const data = change.fullDocument
+      io.emit(events.MOVE_RESET_EVENT, data)
+    }
+  })
+}
+
 const onAllEventsChange = (io: SocketIO.Server) => {
   onMovementChange(io)
   onSensorDataChange(io)
+  onResetFlagReceived(io)
 }
 
 export { onAllEventsChange }

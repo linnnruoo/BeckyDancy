@@ -3,7 +3,7 @@
  */
 import { Document, Schema, model } from 'mongoose'
 
-import Move, { getMoves } from '../common/moves'
+import Move from '../common/moves'
 
 export interface IMovementSchema extends Document {
   move: Move
